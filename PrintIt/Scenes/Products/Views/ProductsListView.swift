@@ -12,19 +12,28 @@ struct ProductsListView: View {
     }
     
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                ForEach(viewModel.products, id: \.self) { product in
-                    NavigationLink {
-                        ProductDetailView(product: product)
-                    } label: {
-                        ProductRow(product: product)
+        switch viewModel.state {
+        case .loading:
+            ProgressView()
+        case .idle:
+            Color.clear
+                .task {
+                    await viewModel.getProducts()
+                }
+        case .failed(let error):
+            Text(error.localizedDescription)
+        case .loaded:
+            ScrollView {
+                LazyVStack {
+                    ForEach(viewModel.products, id: \.self) { product in
+                        NavigationLink {
+                            ProductDetailView(product: product)
+                        } label: {
+                            ProductRow(product: product)
+                        }
                     }
                 }
             }
-        }
-        .task {
-            await viewModel.getProducts()
         }
     }
 }

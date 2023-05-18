@@ -10,7 +10,11 @@ struct CategoryListView: View {
             ScrollView {
                 LazyVStack {
                     ForEach(viewModel.categories, id: \.self) { category in
-                        CategoryRow(category: category)
+                        NavigationLink {
+                            ProductsListView(category: category)
+                        } label: {
+                            CategoryRow(category: category)
+                        }
                     }
                 }
             }
