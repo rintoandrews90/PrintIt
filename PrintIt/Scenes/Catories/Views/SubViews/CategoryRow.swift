@@ -4,7 +4,6 @@ import SwiftUI
 struct CategoryRow: View {
     
     let category: Category
-    @State private var isActive = false
     
     var body: some View {
         VStack {
@@ -37,16 +36,6 @@ struct CategoryRow: View {
             }
             Divider()
         }
-        .onTapGesture {
-            self.isActive = true
-        }
-        .background(
-            NavigationLink (
-                destination: ProductsListView(category: category), isActive: $isActive,
-                label: {
-                    EmptyView()
-                }
-            ))
     }
 }
 
