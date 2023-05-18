@@ -1,9 +1,3 @@
-//
-//  ProductsListViewModel.swift
-//  PrintIt
-//
-//  Created by Rinto Andrews on 18/05/23.
-//
 
 import Foundation
 
